@@ -93,7 +93,10 @@ jobs:
           version=$(tr -d '\r\n' < VERSION)
           tag="performance-preview-${GITHUB_SHA:0:7}"
           mkdir packages
-          cp artifacts/cage-performance-windows-windows-2025/"Cage-$version-windows-amd64-setup-unsigned.exe" packages/
+          mapfile -d '' installers < <(find artifacts/cage-performance-windows-windows-2025 -type f \
+            -name "Cage-$version-windows-amd64-setup-unsigned.exe" -print0)
+          [[ ${#installers[@]} == 1 ]]
+          cp "${installers[0]}" packages/
           cp artifacts/cage-performance-macos/"Cage-$version-macos-arm64-preview.dmg" packages/
           cp artifacts/cage-performance-iphone/"Cage-$version-iphone-xcode-kit.zip" packages/
           (cd packages && sha256sum *.exe *.dmg *.zip > SHA256SUMS)
