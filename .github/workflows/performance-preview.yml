@@ -96,10 +96,14 @@ jobs:
           mapfile -d '' installers < <(find artifacts/cage-performance-windows-windows-2025 -type f \
             -name "Cage-$version-windows-amd64-setup-unsigned.exe" -print0)
           [[ ${#installers[@]} == 1 ]]
+          windows=$(dirname "${installers[0]}")
+          (cd "$windows" && tr -d '\r' < SHA256SUMS | sha256sum -c -)
           cp "${installers[0]}" packages/
+          cp "$windows"/*source*.gz packages/
+          (cd artifacts/cage-performance-macos && sha256sum -c SHA256SUMS)
           cp artifacts/cage-performance-macos/"Cage-$version-macos-arm64-preview.dmg" packages/
           cp artifacts/cage-performance-iphone/"Cage-$version-iphone-xcode-kit.zip" packages/
-          (cd packages && sha256sum *.exe *.dmg *.zip > SHA256SUMS)
+          (cd packages && sha256sum *.exe *.dmg *.zip *.gz > SHA256SUMS)
           cat > release-notes.md <<'EOF'
           - Windows x64：未签名的预览安装器。
           - macOS Apple Silicon：采用 ad-hoc 签名的预览 DMG，尚未公证。
