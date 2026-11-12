@@ -1,6 +1,11 @@
 name: Package Windows, macOS and iPhone preview
 on:
   workflow_dispatch:
+    inputs:
+      artifact_run_id:
+        description: Publish verified artifacts from an existing run instead of rebuilding
+        type: string
+        default: ''
 permissions:
   contents: read
 concurrency:
@@ -9,6 +14,7 @@ concurrency:
 
 jobs:
   windows:
+    if: inputs.artifact_run_id == ''
     uses: ./.github/workflows/windows-build.yml
     with:
       ref: ${{ github.sha }}
@@ -16,6 +22,7 @@ jobs:
       single_preview_runner: true
       artifact_name: cage-performance-windows
   macos:
+    if: inputs.artifact_run_id == ''
     uses: ./.github/workflows/macos-build.yml
     with:
       ref: ${{ github.sha }}
@@ -23,6 +30,7 @@ jobs:
       development_dmg: true
       artifact_name: cage-performance-macos
   iphone:
+    if: inputs.artifact_run_id == ''
     runs-on: macos-15
     timeout-minutes: 25
     steps:
@@ -71,27 +79,54 @@ jobs:
           compression-level: 0
           retention-days: 14
   publish:
-    if: github.repository == 'Rsdvb/Claude-Cage' && github.ref == 'refs/heads/main'
+    if: >-
+      always() && !cancelled() && github.repository == 'Rsdvb/Claude-Cage' && github.ref == 'refs/heads/main' &&
+      (inputs.artifact_run_id != '' || (needs.windows.result == 'success' && needs.macos.result == 'success' && needs.iphone.result == 'success'))
     needs: [windows, macos, iphone]
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     permissions:
+      actions: read
       contents: write
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
+      - name: Verify build provenance
+        id: build
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARTIFACT_RUN: ${{ inputs.artifact_run_id }}
+        run: |
+          set -euo pipefail
+          run=${ARTIFACT_RUN:-$GITHUB_RUN_ID}
+          sha=$GITHUB_SHA
+          if [[ -n "$ARTIFACT_RUN" ]]; then
+            [[ "$run" =~ ^[0-9]+$ ]]
+            sha=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$run" | jq -er '
+              select(.path == ".github/workflows/performance-preview.yml" and
+                     .event == "workflow_dispatch" and .head_branch == "main" and
+                     .head_repository.full_name == env.GITHUB_REPOSITORY and .status == "completed") | .head_sha')
+          fi
+          [[ "$sha" =~ ^[0-9a-f]{40}$ ]]
+          version=$(gh api --method GET "repos/$GITHUB_REPOSITORY/contents/VERSION" -f ref="$sha" --jq .content | base64 -d | tr -d '\r\n')
+          [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.-]+)?$ ]]
+          printf 'run=%s\nsha=%s\nversion=%s\n' "$run" "$sha" "$version" >> "$GITHUB_OUTPUT"
       - uses: actions/download-artifact@v4
         with:
+          github-token: ${{ github.token }}
+          run-id: ${{ steps.build.outputs.run }}
           pattern: cage-performance-*
           path: artifacts
       - name: Publish the preview packages and checksums
         env:
           GH_TOKEN: ${{ github.token }}
+          BUILD_SHA: ${{ steps.build.outputs.sha }}
+          BUILD_VERSION: ${{ steps.build.outputs.version }}
         run: |
           set -euo pipefail
-          version=$(tr -d '\r\n' < VERSION)
-          tag="performance-preview-${GITHUB_SHA:0:7}"
+          version=$BUILD_VERSION
+          tag="performance-preview-${BUILD_SHA:0:7}"
           mkdir packages
           mapfile -d '' installers < <(find artifacts/cage-performance-windows-windows-2025 -type f \
             -name "Cage-$version-windows-amd64-setup-unsigned.exe" -print0)
@@ -113,7 +148,8 @@ jobs:
           EOF
           if gh release view "$tag" >/dev/null 2>&1; then
             gh release upload "$tag" packages/* --clobber
+            gh release edit "$tag" --draft=false --prerelease --latest=false --notes-file release-notes.md
           else
-            gh release create "$tag" packages/* --target "$GITHUB_SHA" --prerelease --latest=false \
-              --title "Cage $version 性能预览 (${GITHUB_SHA:0:7})" --notes-file release-notes.md
+            gh release create "$tag" packages/* --target "$BUILD_SHA" --prerelease --latest=false \
+              --title "Cage $version 性能预览 (${BUILD_SHA:0:7})" --notes-file release-notes.md
           fi
