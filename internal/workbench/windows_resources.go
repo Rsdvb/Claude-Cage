@@ -26,7 +26,7 @@ func windowsAllocationLimits(allocation cage.ResourceAllocation, maxMemory, maxC
 		return 0, 0, errors.New("主机可分配的资源不足，Windows 11 客机至少需要 4 GiB 内存与 2 个逻辑核心")
 	}
 	if allocation.Automatic {
-		return maxMemory, maxCPUs, nil
+		return min(maxMemory, 6), min(maxCPUs, 4), nil
 	}
 	if allocation.MemoryGiB < 4 || allocation.MemoryGiB > maxMemory || allocation.CPUs < 2 || allocation.CPUs > maxCPUs {
 		return 0, 0, fmt.Errorf("Windows 客机内存须为 4–%d GiB，CPU 须为 2–%d 个逻辑核心", maxMemory, maxCPUs)
@@ -91,6 +91,7 @@ func (s *Server) windowsResourceStatus(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	maxMemory, maxCPUs := windowsResourceMaximum()
+	recommendedMemory, recommendedCPUs, _ := windowsAllocationLimits(cage.ResourceAllocation{Automatic: true}, maxMemory, maxCPUs)
 	memory, cpus, err := windowsAllocationLimits(allocation, maxMemory, maxCPUs)
 	allocationError := ""
 	if err != nil {
@@ -112,7 +113,7 @@ func (s *Server) windowsResourceStatus(w http.ResponseWriter, r *http.Request) {
 			allocationError = sampleErr.Error()
 		}
 	}
-	jsonReply(w, map[string]any{"runtime": "hyperv", "running": running, "automatic": allocation.Automatic, "memory_gib": memory, "cpus": cpus, "min_memory_gib": 4, "min_cpus": 2, "max_memory_gib": maxMemory, "max_cpus": maxCPUs, "resource_error": allocationError, "recommended_memory_bytes": uint64(maxMemory) << 30, "recommended_cpus": maxCPUs, "configured_memory_bytes": maximum, "configured_cpus": state.CPUs, "dynamic_memory": state.DynamicMemory, "resources_verified": allocationError == "", "restart_required": running && err == nil && !state.MatchesAllocation(memory, cpus), "observation": observation, "unavailable_observations": []string{"oom_kills", "memory_stall_percent", "swap_total_bytes", "swap_free_bytes", "host_pressure"}})
+	jsonReply(w, map[string]any{"runtime": "hyperv", "running": running, "automatic": allocation.Automatic, "memory_gib": memory, "cpus": cpus, "min_memory_gib": 4, "min_cpus": 2, "max_memory_gib": maxMemory, "max_cpus": maxCPUs, "resource_error": allocationError, "recommended_memory_bytes": uint64(recommendedMemory) << 30, "recommended_cpus": recommendedCPUs, "configured_memory_bytes": maximum, "configured_cpus": state.CPUs, "dynamic_memory": state.DynamicMemory, "resources_verified": allocationError == "", "restart_required": running && err == nil && !state.MatchesAllocation(memory, cpus), "observation": observation, "unavailable_observations": []string{"oom_kills", "memory_stall_percent", "swap_total_bytes", "swap_free_bytes", "host_pressure"}})
 }
 func (s *Server) applyWindowsResources(w http.ResponseWriter, r *http.Request) {
 	var input struct {

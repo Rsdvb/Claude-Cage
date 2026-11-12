@@ -11,7 +11,7 @@ import (
 
 func TestWindowsAllocationLimits(t *testing.T) {
 	for _, tc := range []struct{ hostGiB, hostCPUs, wantGiB, wantCPUs int }{
-		{1024, 256, 256, 64}, {32, 8, 24, 8},
+		{1024, 256, 6, 4}, {32, 8, 6, 4}, {6, 2, 4, 2},
 	} {
 		maxGiB, maxCPUs := guestos.WindowsVMResourceCeiling(tc.hostGiB, tc.hostCPUs)
 		mem, cpus, err := windowsAllocationLimits(cage.ResourceAllocation{Automatic: true}, maxGiB, maxCPUs)
@@ -44,7 +44,7 @@ func TestWindowsColdStartUsesManagerAndHostShareLimits(t *testing.T) {
 	}{{"2", 64}, {"1", 96}} {
 		t.Setenv("AGENT_VM_HOST_SHARE", tc.share)
 		memory, cpus, err := s.configuredWindowsResources()
-		if err != nil || memory != tc.wantMemory || cpus != 64 {
+		if err != nil || memory != min(tc.wantMemory, 6) || cpus != 4 {
 			t.Fatalf("share %s: got %d GiB / %d CPUs, %v", tc.share, memory, cpus, err)
 		}
 	}

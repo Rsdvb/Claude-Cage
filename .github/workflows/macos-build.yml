@@ -15,6 +15,9 @@ on:
         description: Name of the resulting workflow artifact
         required: true
         type: string
+      development_dmg:
+        type: boolean
+        default: false
 permissions:
   contents: read
 
@@ -97,7 +100,7 @@ jobs:
           _output/Cage.app/Contents/Resources/mihomo -v
           [[ "$(lipo -archs _output/Cage.app/Contents/MacOS/Cage)" == arm64 ]]
       - name: Archive a complete development App with executable permissions
-        if: ${{ !inputs.release }}
+        if: ${{ !inputs.release && !inputs.development_dmg }}
         run: |
           version=$(tr -d '\r\n' < VERSION)
           mkdir -p _output/ci-macos-test
@@ -111,6 +114,18 @@ jobs:
             test -x "$check/Cage.app/$executable"
           done
           (cd _output/ci-macos-test && shasum -a 256 "${archive##*/}" > SHA256SUMS)
+      - name: Package and verify the development disk image
+        if: ${{ !inputs.release && inputs.development_dmg }}
+        run: |
+          version=$(tr -d '\r\n' < VERSION)
+          stage=$(mktemp -d "$RUNNER_TEMP/cage-dmg.XXXXXX")
+          ditto _output/Cage.app "$stage/Cage.app"
+          ln -s /Applications "$stage/Applications"
+          mkdir -p _output/ci-macos-test
+          dmg="_output/ci-macos-test/Cage-$version-macos-arm64-preview.dmg"
+          hdiutil create -volname 'Cage Preview' -format UDZO -srcfolder "$stage" "$dmg"
+          hdiutil verify "$dmg"
+          (cd _output/ci-macos-test && shasum -a 256 "${dmg##*/}" > SHA256SUMS)
       - uses: actions/upload-artifact@v4
         if: ${{ !inputs.release }}
         with:

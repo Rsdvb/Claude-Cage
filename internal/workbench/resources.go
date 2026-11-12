@@ -70,6 +70,7 @@ func (s *Server) resourceStatus(w http.ResponseWriter, r *http.Request) {
 		memory, cpus = a.MemoryGiB, a.CPUs
 	}
 	maxMemory, maxCPUs := cage.ResourceLimits()
+	recommendedMemory, recommendedCPUs, _ := (cage.ResourceAllocation{Automatic: true}).Limits()
 	running := s.vmRunning()
 	var configured struct {
 		Memory string `yaml:"memory"`
@@ -89,7 +90,7 @@ func (s *Server) resourceStatus(w http.ResponseWriter, r *http.Request) {
 		"memory_gib": memory, "cpus": cpus,
 		"max_memory_gib": maxMemory, "max_cpus": maxCPUs,
 		"resource_error":           allocationError,
-		"recommended_memory_bytes": uint64(maxMemory) << 30, "recommended_cpus": maxCPUs,
+		"recommended_memory_bytes": uint64(recommendedMemory) << 30, "recommended_cpus": recommendedCPUs,
 		"configured_memory_bytes": maximum, "configured_cpus": configured.CPUs,
 		"restart_required": running && (maximum != int64(memory)<<30 || configured.CPUs != cpus || observation == nil),
 		"observation":      observation,

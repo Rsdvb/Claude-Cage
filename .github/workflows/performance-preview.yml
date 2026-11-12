@@ -1,0 +1,112 @@
+name: Package Windows, macOS and iPhone preview
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: cage-performance-preview-${{ github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  windows:
+    uses: ./.github/workflows/windows-build.yml
+    with:
+      ref: ${{ github.sha }}
+      release: false
+      single_preview_runner: true
+      artifact_name: cage-performance-windows
+  macos:
+    uses: ./.github/workflows/macos-build.yml
+    with:
+      ref: ${{ github.sha }}
+      release: false
+      development_dmg: true
+      artifact_name: cage-performance-macos
+  iphone:
+    runs-on: macos-15
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: ui/package-lock.json
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: mobile/bindings/go.mod
+      - name: Build the iPhone application without signing credentials
+        run: |
+          npm ci --prefix ui --no-audit --no-fund
+          bash mobile/build.sh ios
+      - name: Assemble the Xcode project with prebuilt dependencies
+        run: |
+          set -euo pipefail
+          version=$(tr -d '\r\n' < VERSION)
+          kit="$RUNNER_TEMP/Cage-iPhone"
+          mkdir -p "$kit/.build/ios" _output/iphone
+          ditto mobile/ios "$kit/ios"
+          ditto mobile/.build/resources "$kit/.build/resources"
+          ditto mobile/.build/ios/Cagemobile.xcframework "$kit/.build/ios/Cagemobile.xcframework"
+          ditto mobile/.build/ios/Assets.xcassets "$kit/.build/ios/Assets.xcassets"
+          cp LICENSE THIRD_PARTY_LICENSES "$kit/"
+          cat > "$kit/README.txt" <<'EOF'
+          Open ios/CageMobile.xcodeproj on a Mac. Select CageMobile, add your
+          Apple account in Xcode, and select a team in Signing & Capabilities.
+          If Xcode reports that the Bundle ID is unavailable, change CAGE_APP_ID
+          in the project Build Settings. Connect your iPhone (iOS 17 or later),
+          enable Developer Mode if prompted, select the device, and click Run.
+          Pair from Cage on your computer in Settings > Remote > Phone.
+          EOF
+          archive="_output/iphone/Cage-$version-iphone-xcode-kit.zip"
+          ditto -c -k --keepParent "$kit" "$archive"
+          unzip -tq "$archive"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cage-performance-iphone
+          path: _output/iphone/*.zip
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+  publish:
+    if: github.repository == 'Rsdvb/Claude-Cage' && github.ref == 'refs/heads/main'
+    needs: [windows, macos, iphone]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: cage-performance-*
+          path: artifacts
+      - name: Publish the preview packages and checksums
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          version=$(tr -d '\r\n' < VERSION)
+          tag="performance-preview-${GITHUB_SHA:0:7}"
+          mkdir packages
+          cp artifacts/cage-performance-windows-windows-2025/"Cage-$version-windows-amd64-setup-unsigned.exe" packages/
+          cp artifacts/cage-performance-macos/"Cage-$version-macos-arm64-preview.dmg" packages/
+          cp artifacts/cage-performance-iphone/"Cage-$version-iphone-xcode-kit.zip" packages/
+          (cd packages && sha256sum *.exe *.dmg *.zip > SHA256SUMS)
+          cat > release-notes.md <<'EOF'
+          - Windows x64：未签名的预览安装器。
+          - macOS Apple Silicon：采用 ad-hoc 签名的预览 DMG，尚未公证。
+          - iPhone：解压 Xcode 工程包，选择自己的签名团队并通过 Xcode 安装到设备。
+
+          自动模式降低虚拟机资源上限，减少后台标签刷新；手机端降低静态远程画面的采样频率与像素密度，并分批显示长会话。自动资源配置在客机重启后生效。
+          EOF
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" packages/* --clobber
+          else
+            gh release create "$tag" packages/* --target "$GITHUB_SHA" --prerelease --latest=false \
+              --title "Cage $version 性能预览 (${GITHUB_SHA:0:7})" --notes-file release-notes.md
+          fi

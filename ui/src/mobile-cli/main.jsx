@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { Archive, ArrowLeft, ArrowUp, LoaderCircle, Monitor, RefreshCw, Settings, Square, Terminal } from "lucide-react";
 import { RemoteDisplay } from "./remote-browser";
@@ -19,6 +19,7 @@ const labels = {
   failed: "运行失败", stopped: "已停止", interrupted: "运行中断",
 };
 const active = (status) => status === "running" || status === "stopping" || status === "queued";
+const historyPageSize = 30;
 const nativePhone = navigator.userAgent.includes("CageMobile/1");
 const phoneWorkspace = nativePhone || location.pathname === "/";
 const dateFormat = new Intl.DateTimeFormat("zh-CN", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" });
@@ -137,7 +138,7 @@ function App() {
         setError(error.message);
         setCatalog(previous => previous && ({...previous, sessions:previous.sessions.map(session => ({...session, active:false}))}));
       }
-      if (!controller.signal.aborted && (drawer || current.tool !== "code" || !current.session)) timer = setTimeout(load, 5000);
+      if (!controller.signal.aborted && (drawer || (current.tool === "code" && !current.session))) timer = setTimeout(load, 5000);
     };
     void load();
     return () => { clearTimeout(timer); controller.abort(); };
@@ -311,6 +312,7 @@ function Chat({ id, drafts, ready, visible, refresh, onOpenWeb, onDenied, onMiss
   const [uncertain, setUncertain] = useState(() => !!drafts.get(id)?.pending);
   const [reload, setReload] = useState(0);
   const [approvalFeedback, setApprovalFeedback] = useState(null);
+  const [historyStart, setHistoryStart] = useState(null);
   const checkApproval = useRef(null);
   const readFailures = useRef(0);
   const live = useRef(true);
@@ -318,10 +320,27 @@ function Chat({ id, drafts, ready, visible, refresh, onOpenWeb, onDenied, onMiss
   const submission = useRef(drafts.get(id)?.pending || null);
   const actionBusy = useRef(false);
   const transcript = useRef(null);
+  const historyAnchor = useRef(null);
   const transcriptContext = useMemo(() => ({sessionID:id, openWeb:onOpenWeb}), [id, onOpenWeb]);
   const composerInput = useRef(null);
   const follow = useRef(true);
-  const last = session?.turns?.at(-1);
+  const turns = session?.turns;
+  const last = turns?.at(-1);
+  const startIndex = turns ? turns.findIndex(turn => turn.id === historyStart) : -1;
+  const firstVisible = startIndex >= 0 ? startIndex : Math.max(0, (turns?.length || 0) - historyPageSize);
+  const loadOlder = () => {
+    const box = transcript.current;
+    historyAnchor.current = { height: box.scrollHeight, top: box.scrollTop };
+    follow.current = false;
+    setHistoryStart(turns[Math.max(0, firstVisible - historyPageSize)].id);
+  };
+  useLayoutEffect(() => {
+    if (!historyAnchor.current) return;
+    const box = transcript.current;
+    const { height, top } = historyAnchor.current;
+    historyAnchor.current = null;
+    box.scrollTop = top + box.scrollHeight - height;
+  }, [historyStart]);
   const running = active(last?.status);
   useEffect(() => {
     live.current = true;
@@ -335,6 +354,9 @@ function Chat({ id, drafts, ready, visible, refresh, onOpenWeb, onDenied, onMiss
       drafts.delete(id); submission.current = null; setUncertain(false); setDraft(""); setActionError(""); setSendProgress("");
     }
     if (current && snapshot.generation === current.generation && snapshot.revision < current.revision) return;
+    if (!current || current.generation !== snapshot.generation) {
+      setHistoryStart(snapshot.turns?.[Math.max(0, (snapshot.turns?.length || 0) - historyPageSize)]?.id ?? null);
+    }
     latest.current = snapshot; setSession(snapshot); onSnapshot(snapshot);
     const pending = snapshot.turns?.at(-1)?.approval?.id;
     if (checkApproval.current && pending !== checkApproval.current.id) checkApproval.current = null;
@@ -522,7 +544,8 @@ function Chat({ id, drafts, ready, visible, refresh, onOpenWeb, onDenied, onMiss
     }}>
       {!session && !readError && <Empty icon={LoaderCircle} title="正在读取会话…" />}
       {session && !session.turns?.length && <Empty icon={Terminal} title="发送第一条消息">Claude Code 会在所选项目中处理你的请求。</Empty>}
-      <TranscriptContext.Provider value={transcriptContext}>{session?.turns?.map((turn) => <React.Fragment key={turn.id}>
+      {firstVisible > 0 && <button type="button" className="action secondary" onClick={loadOlder}>加载更早消息</button>}
+      <TranscriptContext.Provider value={transcriptContext}>{turns?.slice(firstVisible).map((turn) => <React.Fragment key={turn.id}>
         <article className="message user" aria-label="你的消息"><MessageBody text={turn.prompt} /></article>
         <article className="message" aria-label="回复">
           <ToolActivity tools={turn.tools} />

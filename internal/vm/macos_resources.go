@@ -26,6 +26,11 @@ const macOSRequirementsFile = "cage-macos-resource-requirements.json"
 
 func (requirements MacOSResourceRequirements) Limits(allocation cage.ResourceAllocation) (int, int, error) {
 	memory, cpus, err := allocation.Limits()
+	if allocation.Automatic {
+		maxMemory, maxCPUs := cage.ResourceLimits()
+		memory = min(maxMemory, max(6, requirements.MemoryGiB))
+		cpus = min(maxCPUs, max(4, requirements.CPUs))
+	}
 	if err != nil {
 		return 0, 0, err
 	}

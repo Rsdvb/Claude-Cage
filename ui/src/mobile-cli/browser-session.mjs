@@ -33,7 +33,7 @@ export function connectDisplay(stage, update, id, start, tool, initialURL) {
   let generation = 0, actionFrame = false, quietReads = 0, writeType = "";
   let pixelRatioSupported = false;
   const displaySize = () => ({...viewportSize(stage),
-    ...(pixelRatioSupported ? {pixel_ratio:clamp(window.devicePixelRatio || 1, 1, 8)} : {})});
+    ...(pixelRatioSupported ? {pixel_ratio:clamp(window.devicePixelRatio || 1, 1, 2)} : {})});
   const needsResize = size => frame && (frame.width !== size.width || frame.height !== size.height ||
     (pixelRatioSupported && frame.requested_pixel_ratio !== size.pixel_ratio));
   let queuedScroll = null, scrollTimer;
@@ -87,7 +87,7 @@ export function connectDisplay(stage, update, id, start, tool, initialURL) {
     quietReads = changed || fromAction ? 0 : Math.min(5, quietReads + 1);
     // The first follow-up catches delayed paint after an input. Stable pages
     // use conditional reads and progressively return to the idle cadence.
-    const delay = desktop ? 450 : [90, 180, 380, 800, 1500, 2500][quietReads];
+    const delay = (desktop ? [450, 700, 1100, 1600, 2200, 2500] : [90, 180, 380, 800, 1500, 2500])[quietReads];
     timer = setTimeout(readFrame, delay);
   }
   async function decodeFrame(next, valid) {

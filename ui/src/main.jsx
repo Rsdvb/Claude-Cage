@@ -646,7 +646,7 @@ function App() {
         const next = await api("/status");
         if (!live) return;
         jobRunning = next.job.running;
-        setStatus(next);
+        setStatus(previous => JSON.stringify(previous) === JSON.stringify(next) ? previous : next);
         setStartRequest(pending => pending?.id && pending.id === next.job.id ? null : pending);
         setConnectionError("");
         if (
@@ -662,7 +662,7 @@ function App() {
           }
           if (next.job.error) notify(next.job.error);
         }
-        if (next.ready) {
+        if (next.ready && (windowVisibleRef.current || !initialized.current)) {
           const fetchBrowser = !browserStreamReady.current || !initialized.current;
           const [browserResult, t] = await Promise.all([
             fetchBrowser ? api("/browser/tabs").then(result => {
@@ -689,7 +689,7 @@ function App() {
           }
           if (!live) return;
           browserSnapshot.current = b;
-          setBrowser(b);
+          setBrowser(previous => JSON.stringify(previous) === JSON.stringify(b) ? previous : b);
           const all = [
             ...b.tabs,
             ...t.map((item) => ({

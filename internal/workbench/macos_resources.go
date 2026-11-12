@@ -124,12 +124,11 @@ func (s *Server) macOSResourceStatus(w http.ResponseWriter, r *http.Request) {
 		requestError(w, err)
 		return
 	}
-	memory, cpus, allocationErr := allocation.Limits()
-	if allocationErr == nil {
-		_, _, allocationErr = requirements.Limits(allocation)
-	} else {
+	memory, cpus, allocationErr := requirements.Limits(allocation)
+	if allocationErr != nil && !allocation.Automatic {
 		memory, cpus = allocation.MemoryGiB, allocation.CPUs
 	}
+	recommendedMemory, recommendedCPUs, _ := requirements.Limits(cage.ResourceAllocation{Automatic: true})
 	var configured struct {
 		Memory string `yaml:"memory"`
 		CPUs   int    `yaml:"cpus"`
@@ -158,7 +157,7 @@ func (s *Server) macOSResourceStatus(w http.ResponseWriter, r *http.Request) {
 	jsonReply(w, map[string]any{"runtime": "vz-macos", "memory_policy": "fixed", "automatic_reclaim": false,
 		"running": running, "automatic": allocation.Automatic, "memory_gib": memory, "cpus": cpus,
 		"min_memory_gib": requirements.MemoryGiB, "min_cpus": requirements.CPUs, "minimum_requirements": requirements,
-		"max_memory_gib": maxMemory, "max_cpus": maxCPUs, "recommended_memory_bytes": uint64(maxMemory) << 30, "recommended_cpus": maxCPUs,
+		"max_memory_gib": maxMemory, "max_cpus": maxCPUs, "recommended_memory_bytes": uint64(recommendedMemory) << 30, "recommended_cpus": recommendedCPUs,
 		"configured_memory_bytes": maximum, "configured_cpus": configured.CPUs, "resource_error": resourceError,
 		"restart_required": running && (maximum != int64(memory)<<30 || configured.CPUs != cpus), "observation": observation,
 		"unavailable_observations": []string{"balloon_bytes", "oom_kills", "memory_stall_percent", "host_pressure"}})
