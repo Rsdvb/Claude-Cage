@@ -2,7 +2,7 @@
 
 <h1>Claude Cage</h1>
 
-**Gardez Miss Claude dans une cage pour que nous puissions mieux protéger notre temps ensemble**
+**Espace de développement isolé**
 
 <img src="assets/claude-cage-character.png" alt="Claude Cage" width="320" />
 
@@ -16,24 +16,9 @@
 
 </div>
 
-## Assez d’Anthropic
+## Espace de développement isolé
 
-En tant qu'utilisateurs ordinaires qui souhaitent simplement parler et collaborer avec Claude, nous en avons assez de configurer des instances VPS, des profils d'empreintes digitales de navigateur et des contrôles d'environnement, tout en nous inquiétant des interdictions de compte et des pertes financières. Nous présentons **Claude Cage** — **une application de bureau prête à l'emploi : configurez votre propre proxy réseau et gérez votre environnement isolé, votre fuseau horaire, votre langue et vos contrôles d'environnement en un seul endroit.**
-
-Claude Cage réunit terminal, navigateur, éditeur et Claude Desktop officiel dans un même espace de travail isolé. Utilisez une machine virtuelle macOS sur Mac, Windows sur un PC compatible, ou un environnement Linux léger. Partagez les projets de votre choix, gérez le réseau séparément, connectez votre serveur par SSH et poursuivez vos tâches depuis votre téléphone. Ses principales fonctions :
-
-- Paramètres réseau isolés de l'hôte ; Cage achemine tout le trafic réseau à l'intérieur de son environnement via son propre proxy réseau
-- Paramètres d'empreinte digitale du navigateur isolés de l'hôte, y compris le fuseau horaire et la langue, avec synchronisation automatique avec l'emplacement IP du proxy réseau
-- Intégration tout au long du flux de travail Claude : connexion au navigateur, autorisation de compte et processus Claude Code
-- Les contrôles de réseau et d'isolement intégrés interrompent l'accès à Internet lorsque les contrôles critiques échouent ou que les preuves sont incomplètes ; les contrôles communautaires et tiers fournissent des informations de référence supplémentaires
-
-**Résultats de la vérification de l'environnement avec Cage :**
-
-| Contrôles du réseau et de l’isolation | Contrôle communautaire du navigateur |
-| :---: | :---: |
-| <a href="assets/network-checks.png"><img src="assets/network-checks.png" alt="Contrôles du réseau et de l’isolation" width="400" /></a> | <a href="assets/community-browser-check.png"><img src="assets/community-browser-check-cropped.png" alt="Contrôle communautaire du navigateur" width="400" /></a> |
-
-[FuckClaude](https://fuck-claude.vercel.app/) · [LinXiaoTao / GitHub](https://github.com/LinXiaoTao/FuckClaude)
+Claude Cage réunit terminal, navigateur, éditeur et Claude Desktop officiel dans un même espace de travail isolé. Utilisez une machine virtuelle macOS sur Mac, Windows sur un PC compatible, ou un environnement Linux léger. Partagez les projets de votre choix, gérez le réseau séparément, connectez votre serveur par SSH et poursuivez vos tâches depuis votre téléphone.
 
 **L'interface principale de Cage :**
 
@@ -58,8 +43,6 @@ Envoyez cette demande à votre agent IA (codex, dsh, workbuddy — probablement 
 ```markdown
 Aide-moi à installer https://github.com/Lee-xeo/Claude-Cage et configurez le proxy réseau de Cage pour utiliser le point de terminaison xxx dans mon installation Clash locale.
 ```
-
-Tout ce dont vous avez besoin est un point de terminaison proxy réseau fiable. Ce projet ne fait la promotion d'aucun fournisseur de proxy ; vous pouvez trouver un fournisseur vous-même, par exemple en recherchant le site Web Black Error.
 
 ## Téléchargement et installation
 
@@ -139,7 +122,6 @@ Merci aux projets suivants pour leurs capacités fondamentales et leurs référe
 - [Mihomo](https://github.com/MetaCubeX/mihomo): le noyau proxy réseau intégré.
 - [code-server](https://github.com/coder/code-server): l'éditeur de code basé sur un navigateur.
 - [AIO Sandbox](https://github.com/agent-infra/sandbox): références pour l'environnement de travail et le design d'interaction.
-- [claude-switcher](https://github.com/YOURSJEYO/claude-switcher) et [Claude-Guardian](https://github.com/DUNHKpcc/Claude-Guardian): références pour les vérifications du réseau et les diagnostics de sécurité.
 
 
 <a href="https://www.star-history.com/?repos=Lee-xeo%2FClaude-Cage&amp;type=date">

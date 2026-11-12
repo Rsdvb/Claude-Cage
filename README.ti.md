@@ -2,7 +2,7 @@
 
 <h1>Claude Cage</h1>
 
-**ሚስ ክላውድ ኣብ ጓጓ ኣቐምጥዋ፡ ምእንቲ ብሓባር ዘለና ግዜ ብዝበለጸ ክንከላኸለሉ ንኽእል**
+**ዝተፈልየ ናይ ልምዓት መስርሒ ከባቢ**
 
 <img src="assets/claude-cage-character.png" alt="Claude Cage" width="320" />
 
@@ -16,24 +16,9 @@
 
 </div>
 
-## ብAnthropic ተሰላቺና
+## ዝተፈልየ ናይ ልምዓት መስርሒ ከባቢ
 
-ከም ተራ ተጠቀምቲ ምስ ክላውድ ጥራይ ክንዛረብን ክንተሓባበርን እንደሊ፡ ብዛዕባ እገዳ ኣካውንትን ፋይናንሳዊ ክሳራን እናተጨነቕና፡ ንVPS instances፡ ናይ መርበብ ሓበሬታ ኣሰር ኣጻብዕቲ ፕሮፋይላት፡ ከምኡ’ውን ናይ ከባቢ ምፍታሽ ምውቃር ደኺምና ኣለና። ነቕርብ **Claude Cage** — **ንኣጠቓቕማ ድሉው ዝኾነ ናይ ዴስክቶፕ መተግበሪ: ናይ ገዛእ ርእስኻ ናይ መርበብ ፕሮክሲ ምውቃርን ነቲ ዝተነጸለ ከባቢኻ፣ ናይ ሰዓት ዞባኻ፣ ቋንቋኻን ከባብያኻ ምፍታሽ ኣብ ሓደ ቦታ ኣመሓድርን።**
-
-Claude Cage ተርሚናል፣ መርበብ መዳህሰሲ፣ ኣርታዒን ወግዓዊ Claude Desktopን ኣብ ሓደ ዝተፈልየ ናይ ስራሕ ቦታ የዋህድ። ኣብ Mac ናይ macOS ቨርቹዋል ማሽን፣ ኣብ ዝሰማማዕ Windows ኮምፒውተር Windows፣ ወይ ቀሊል Linux ተጠቐም። ዝመረጽካዮም ፕሮጀክትታት ኣካፍል፣ መርበብ ብተናጻል ኣመሓድር፣ ምስ ናይ ገዛእ ርእስኻ ሰርቨር ብSSH ተራኸብ፣ ካብ ስልኪ ስራሕ ቀጽል። ቀንዲ ባህርያት፦
-
-- ካብቲ ኣአንጋዲ ዝተነጸሉ ቅጥዕታት መርበብ፤ Cage ንኹሉ ኣብ ውሽጢ ከባቢኡ ዝርከብ ትራፊክ መርበብ ብናይ ገዛእ ርእሱ ኔትወርክ ፕሮክሲ የመሓላልፎ
-- ካብቲ ኣአንጋዲ ዝተነጸለ ቅጥዕታት ኣሰር ኣጻብዕቲ መርበብ ሓበሬታ፡ ዞባ ሰዓትን ቋንቋን ሓዊሱ፡ ምስ ኣውቶማቲክ ምትእስሳር ናብቲ ናይ መርበብ ፕሮክሲ IP ቦታ
-- ውህደት ኣብ ምሉእ ዋሕዚ ስራሕ ክላውድ: ምእታው መርበብ ሓበሬታ፣ ፍቓድ ኣካውንት፣ ከምኡ’ውን መስርሕ ኮድ ክላውድ
-- ኣብ ውሽጡ ዝተሃንጸ ኔትወርክን ተነጽሎን ምፍታሽ ወሳኒ ምፍታሽ ኣብ ዝፈሽለሉ ወይ መርትዖታት ኣብ ዘይተማልአሉ እዋን ንመእተዊ ኢንተርነት ደው የብሎ፤ ናይ ማሕበረሰብን ሳልሳይ ወገንን ምፍታሽ ተወሳኺ መወከሲ ሓበሬታ ይህብ
-
-**ውጽኢት ምፍታሽ ከባቢ ምስ Cage፤**
-
-| መርመራ መርበብን ምፍላይን | ናይ ማሕበረሰብ መርመራ መርበብ መዳህሰሲ |
-| :---: | :---: |
-| <a href="assets/network-checks.png"><img src="assets/network-checks.png" alt="መርመራ መርበብን ምፍላይን" width="400" /></a> | <a href="assets/community-browser-check.png"><img src="assets/community-browser-check-cropped.png" alt="ናይ ማሕበረሰብ መርመራ መርበብ መዳህሰሲ" width="400" /></a> |
-
-[FuckClaude](https://fuck-claude.vercel.app/) · [LinXiaoTao / GitHub](https://github.com/LinXiaoTao/FuckClaude)
+Claude Cage ተርሚናል፣ መርበብ መዳህሰሲ፣ ኣርታዒን ወግዓዊ Claude Desktopን ኣብ ሓደ ዝተፈልየ ናይ ስራሕ ቦታ የዋህድ። ኣብ Mac ናይ macOS ቨርቹዋል ማሽን፣ ኣብ ዝሰማማዕ Windows ኮምፒውተር Windows፣ ወይ ቀሊል Linux ተጠቐም። ዝመረጽካዮም ፕሮጀክትታት ኣካፍል፣ መርበብ ብተናጻል ኣመሓድር፣ ምስ ናይ ገዛእ ርእስኻ ሰርቨር ብSSH ተራኸብ፣ ካብ ስልኪ ስራሕ ቀጽል።
 
 **ቀንዲ መተሓላለፊ Cage፤**
 
@@ -58,8 +43,6 @@ Claude Cage ተርሚናል፣ መርበብ መዳህሰሲ፣ ኣርታዒን �
 ```markdown
 ንኽተክል ሓግዙኒ። https://github.com/Lee-xeo/Claude-Cage ከምኡ’ውን ናይ Cage መርበብ ፕሮክሲ ኣብቲ ናተይ ከባብያዊ ክላሽ ምትካል xxx መወዳእታ ነጥቢ ንኽጥቀም ምውቃር።
 ```
-
-ዘድልየካ ዘተኣማምን ናይ መርበብ ፕሮክሲ መወዳእታ ነጥቢ ጥራይ እዩ። እዚ ፕሮጀክት ንዝኾነ ፕሮክሲ ወሃቢ ዘስፋሕፍሕ ኣይኮነን፤ ባዕልኻ ኣቕራቢ ክትረክብ ትኽእል ኢኻ፣ ንኣብነት ኣብ መርበብ ሓበሬታ Black Error ብምድላይ።
 
 ## ዳውንሎድ ምግባርን ምትካልን።
 
@@ -139,7 +122,6 @@ Cage ናጻ ማሕበረሰባዊ ፕሮጀክት ኮይኑ ምስ ኣንትሮ�
 - [Mihomo](https://github.com/MetaCubeX/mihomo): እቲ ኣብ ውሽጢ ዝተሃንጸ መርበብ ፕሮክሲ ኮር።
 - [code-server](https://github.com/coder/code-server): እቲ ኣብ መርበብ ሓበሬታ ዝተመርኮሰ ናይ ኮድ ኣርታዒ።
 - [AIO Sandbox](https://github.com/agent-infra/sandbox): መወከሲታት ንሃዋህው ስራሕን ዲዛይን ምትእስሳርን.
-- [claude-switcher](https://github.com/YOURSJEYO/claude-switcher) ከምኡ’ውን... [Claude-Guardian](https://github.com/DUNHKpcc/Claude-Guardian): መወከሲታት ንናይ መርበብ ምፍታሽን ናይ ድሕነት መርመራታትን።
 
 
 <a href="https://www.star-history.com/?repos=Lee-xeo%2FClaude-Cage&amp;type=date">

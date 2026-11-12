@@ -2,7 +2,7 @@
 
 <h1>Claude Cage</h1>
 
-**把 Claude 大小姐關起來，為了更好地保護我們的相遇**
+**隔離開發工作台**
 
 <img src="assets/claude-cage-character.png" alt="Claude Cage" width="320" />
 
@@ -16,24 +16,9 @@
 
 </div>
 
-## 受夠了 Anthropic
+## 隔離開發工作台
 
-作為一個只是想和 Claude 對話與合作的正常使用者，受夠了折騰各種 VPS，指紋瀏覽器，環境檢測，面對封號的擔驚受怕和財產損失。我們提出 **Claude Cage** 專案：**一個開箱即用的桌面程式，配置好自己的網路代理，集中管理隔離環境、時區語言和環境檢查。**
-
-Claude Cage 讓你在熟悉的系統裡與 Claude 一起工作：Mac 上使用 macOS 虛擬機器，Windows 上使用 Windows 虛擬機器，也可以選擇輕量的 Linux 環境。終端、瀏覽器、編輯器和官方 Claude Desktop 集中在同一個工作臺，專案按需共享，網路獨立管理；還能連接自己的伺服器，或用手機接續電腦上的工作。主要功能包括：
-
-- 和主機隔離的網路設定，Cage 自己接管和代理內部的所有網路流量
-- 和主機隔離的指紋設定，包括時區、語言等，支援自動與代理 IP 同步
-- 針對 Claude 使用過程中的全鏈路適配（瀏覽器登入，授權，claude code 程序）
-- 內建網路與隔離檢查，關鍵檢查失敗或證據不完整時暫停外網；社群和第三方檢測提供補充參考
-
-**使用 Cage 的環境檢測結果：**
-
-| 網路與隔離檢查 | 社群瀏覽器檢查 |
-| :---: | :---: |
-| <a href="assets/network-checks.png"><img src="assets/network-checks.png" alt="網路與隔離檢查" width="400" /></a> | <a href="assets/community-browser-check.png"><img src="assets/community-browser-check-cropped.png" alt="社群瀏覽器檢查" width="400" /></a> |
-
-[FuckClaude](https://fuck-claude.vercel.app/) · [LinXiaoTao / GitHub](https://github.com/LinXiaoTao/FuckClaude)
+Claude Cage 讓你在熟悉的系統裡與 Claude 一起工作：Mac 上使用 macOS 虛擬機器，Windows 上使用 Windows 虛擬機器，也可以選擇輕量的 Linux 環境。終端、瀏覽器、編輯器和官方 Claude Desktop 集中在同一個工作臺，專案按需共享，網路獨立管理；還能連接自己的伺服器，或用手機接續電腦上的工作。
 
 **Cage 執行主介面：**
 
@@ -58,8 +43,6 @@ Claude Cage 讓你在熟悉的系統裡與 Claude 一起工作：Mac 上使用 m
 ```markdown
 幫我安裝 https://github.com/Lee-xeo/Claude-Cage ，並把 Cage 的代理配置為我本機 Clash 的 xxx 節點。
 ```
-
-你唯一需要的，是一個靠譜的代理節點，本專案不做任何代理推廣，可以自行搜尋黑色錯誤網站解決。
 
 ## 下載與安裝
 
@@ -139,7 +122,6 @@ Cage 是獨立社群專案，與 Anthropic 無隸屬關係。
 - [Mihomo](https://github.com/MetaCubeX/mihomo)：內建代理核心。
 - [code-server](https://github.com/coder/code-server)：瀏覽器中的程式碼編輯器。
 - [AIO Sandbox](https://github.com/agent-infra/sandbox)：工作環境和互動體驗參考。
-- [claude-switcher](https://github.com/YOURSJEYO/claude-switcher) 和 [Claude-Guardian](https://github.com/DUNHKpcc/Claude-Guardian)：網路檢查和安全診斷方法參考。
 
 
 <a href="https://www.star-history.com/?repos=Lee-xeo%2FClaude-Cage&amp;type=date">

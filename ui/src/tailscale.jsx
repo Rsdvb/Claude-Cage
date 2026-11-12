@@ -3,6 +3,7 @@ import { Check, ChevronDown, Copy, ExternalLink, KeyRound, LoaderCircle, Monitor
 import { api, writeClipboard } from "./api";
 import { Modal } from "./modal";
 import "./tailscale.css";
+import { HostTailscaleServices } from "./tailscale-host";
 
 const labels = { Running: "已连接", NeedsLogin: "等待登录", NeedsMachineAuth: "等待管理员批准", Starting: "正在连接", Stopped: "已断开", NotInstalled: "尚未安装" };
 const descriptions = {
@@ -14,12 +15,13 @@ const descriptions = {
 const deviceName = peer => peer.hostname || peer.name?.split(".")[0] || peer.ip;
 function DeviceIcon({ os }) { return ["android", "iOS"].includes(os) ? <Smartphone size={20} /> : <Monitor size={20} />; }
 
-export function TailscalePanel({ status, onClose, onOpenBrowser, onInstall, onConfirm }) {
+export function TailscalePanel({ status, windowVisible, hostServices, onClose, onOpenBrowser, onInstall, onConfirm }) {
   const [state, setState] = useState(null), [error, setError] = useState(""), [busy, setBusy] = useState(false);
   const [key, setKey] = useState(""), [notice, setNotice] = useState(""), [query, setQuery] = useState("");
   const [sshOpen, setSSHOpen] = useState(false), [selected, setSelected] = useState(""), [username, setUsername] = useState("");
   const [port, setPort] = useState("80"), [appsOpen, setAppsOpen] = useState(false);
   const mounted = useRef(true), inflight = useRef(false), loginRequested = useRef(false), revision = useRef(0);
+  const lastStatus = useRef("");
   const ready = status.ready && !status.job?.running;
   const connected = ready && state?.backend === "Running";
   const address = state?.ips?.find(ip => !ip.includes(":"));
@@ -37,7 +39,12 @@ export function TailscalePanel({ status, onClose, onOpenBrowser, onInstall, onCo
     try {
       const value = await api("/tailscale");
       if (mounted.current && current === revision.current) {
-        setState(value); setError("");
+        const snapshot = JSON.stringify(value);
+        if (snapshot !== lastStatus.current) {
+          lastStatus.current = snapshot;
+          setState(value);
+        }
+        setError("");
         if (loginRequested.current && value.auth_url) await openLogin(value.auth_url);
         if (value.backend === "Running") loginRequested.current = false;
       }
@@ -47,17 +54,28 @@ export function TailscalePanel({ status, onClose, onOpenBrowser, onInstall, onCo
   };
   useEffect(() => {
     mounted.current = true;
-    void refresh();
-    const timer = setInterval(() => void refresh(), 3000);
-    return () => { mounted.current = false; revision.current++; clearInterval(timer); };
-  }, [ready]);
+    const onVisible = () => { if (windowVisible && !document.hidden) void refresh(); };
+    onVisible();
+    const timer = setInterval(onVisible, connected ? 12000 : 3000);
+    document.addEventListener("visibilitychange", onVisible);
+    return () => {
+      mounted.current = false;
+      revision.current++;
+      clearInterval(timer);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  }, [ready, connected, windowVisible]);
   const act = async (action, body = {}) => {
     if (busy) return;
     setBusy(true); setError(""); setNotice(""); revision.current++;
     try {
       inflight.current = true;
       const value = await api(`/tailscale/${action}`, body);
-      if (mounted.current) { setState(value); if (action === "add-key") setKey(""); }
+      if (mounted.current) {
+        lastStatus.current = JSON.stringify(value);
+        setState(value);
+        if (action === "add-key") setKey("");
+      }
       return value;
     } catch (e) { if (mounted.current) setError(e.message); }
     finally { inflight.current = false; if (mounted.current) setBusy(false); }
@@ -103,6 +121,7 @@ export function TailscalePanel({ status, onClose, onOpenBrowser, onInstall, onCo
         </div>}
       </div>
       {error && <p className="error-message" role="alert">{error}</p>}
+      {ready && hostServices && status.guest_system !== "windows-11" && <HostTailscaleServices onConfirm={onConfirm} onCopy={copy} />}
       {connected && state.health?.length > 0 && <div className="tailscale-health" role="status"><strong>网络需要留意</strong>{state.health.map((message, i) => <p key={i}>{message}</p>)}</div>}
       {connected && <section className="tailscale-self" aria-label="当前 Cage 设备">
         <DeviceIcon os={state.os} />

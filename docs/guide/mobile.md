@@ -20,7 +20,7 @@ iOS 用户在自己的 Mac 上构建并为设备签名，步骤见下文。
 ## iOS 本地构建
 
 1. 在 Mac 安装完整 Xcode 和 iOS SDK，首次打开 Xcode 完成组件安装。准备 Node.js 24 与 Go，Go 版本遵循仓库中的 `go.mod`。
-2. 下载 [Cage 源码](https://github.com/Lee-xeo/Claude-Cage)，在仓库根目录执行以下命令，生成手机界面、原生连接库和 iOS 应用。
+2. 下载 [Cage 源码](https://github.com/Rsdvb/Claude-Cage)，在仓库根目录执行以下命令，生成手机界面、原生连接库和 iOS 应用。
 
    ```sh
    npm ci --prefix ui
@@ -29,6 +29,8 @@ iOS 用户在自己的 Mac 上构建并为设备签名，步骤见下文。
    ```
 
 3. 在 Xcode 选择 `CageMobile` scheme，在 Signing & Capabilities 中选择自己的开发团队，连接 iPhone 并选择该设备，再点击 Run。按设备提示信任开发签名并启用开发者模式。
+
+如果 Xcode 提示默认 Bundle ID 已被占用，在项目的 Build Settings 中将 `CAGE_APP_ID` 改成自己的唯一标识，再试一次。扫码配对使用电脑端的中继连接，手机和客机均可关闭 Tailscale。
 
 构建产物位于 `mobile/.build/ios/`，设备证书与签名由自己的 Apple 开发账户管理。安装后按照下文配对电脑。需要导出供本人设备安装的开发 IPA，可查看[移动端构建说明](https://github.com/Lee-xeo/Claude-Cage/blob/main/mobile/README.md#ios-本地构建)。
 

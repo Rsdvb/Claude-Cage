@@ -19,6 +19,19 @@ export function orderedTabs(tabs, saved) {
   });
 }
 
+export function reconcileTabs(previous, snapshot) {
+  const remaining = new Map(snapshot.map(tab => [tab.id, tab]));
+  const next = [];
+  for (const tab of previous) {
+    const updated = remaining.get(tab.id);
+    if (!updated) continue;
+    remaining.delete(tab.id);
+    next.push(JSON.stringify(tab) === JSON.stringify(updated) ? tab : updated);
+  }
+  next.push(...remaining.values());
+  return next.length === previous.length && next.every((tab, i) => tab === previous[i]) ? previous : next;
+}
+
 const clientMount = /^\/run\/cage-client-projects\/[0-9a-f]{32}$/;
 const folderName = (path) => path?.split(/[\\/]/).filter(Boolean).at(-1);
 

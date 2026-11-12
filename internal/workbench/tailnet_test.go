@@ -4,9 +4,52 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"net/netip"
 	"strings"
 	"testing"
 )
+
+func TestHostTailnetForwardBoundaries(t *testing.T) {
+	s := testServer(t)
+	s.ready = true
+	path := "/api/tailscale/host-open-service"
+	body := `{"device":"peer-id","port":22}`
+	if got := request(s, "POST", path, s.origin, body, false).Code; got != http.StatusUnauthorized {
+		t.Fatalf("unauthenticated request returned %d", got)
+	}
+	if got := request(s, "POST", path, "https://evil.test", body, true).Code; got != http.StatusForbidden {
+		t.Fatalf("cross-origin request returned %d", got)
+	}
+	for _, invalid := range []string{`{"host":"127.0.0.1","port":22}`, `{"device":"peer-id","port":0}`, `{"device":"peer-id","port":65536}`} {
+		if got := request(s, "POST", path, s.origin, invalid, true).Code; got != http.StatusBadRequest {
+			t.Fatalf("invalid destination returned %d", got)
+		}
+	}
+	s.networkPaused = true
+	if got := request(s, "POST", path, s.origin, body, true).Code; got != http.StatusConflict {
+		t.Fatalf("paused network returned %d", got)
+	}
+}
+
+func TestHostTailnetForwardEndpoint(t *testing.T) {
+	peer := hostTailnetPeer{IPs: []netip.Addr{netip.MustParseAddr("127.0.0.1"), netip.MustParseAddr("100.70.1.2")}}
+	if got := peer.ip().String(); got != "100.70.1.2" {
+		t.Fatalf("selected %s", got)
+	}
+	const target = "127.0.0.1:45939"
+	if got := allocatedTailnetPort("Allocated port 32123 for remote forward to "+target, target); got != 32123 {
+		t.Fatalf("allocated port = %d", got)
+	}
+	for _, line := range []string{
+		"Allocated port 32123 for remote forward to 127.0.0.1:45940",
+		"Allocated port 65536 for remote forward to " + target,
+		"debug1: remote forward success for: listen 127.0.0.1:0, connect " + target,
+	} {
+		if got := allocatedTailnetPort(line, target); got != 0 {
+			t.Fatalf("unrelated line accepted: %q", line)
+		}
+	}
+}
 
 func TestTailnetAuthorizationURL(t *testing.T) {
 	for _, u := range []string{"https://login.tailscale.com/a/abc", "https://login.tailscale.com/c/abc"} {

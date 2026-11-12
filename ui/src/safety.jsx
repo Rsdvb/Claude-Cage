@@ -6,7 +6,6 @@ import {
   CircleHelp,
   X,
   LoaderCircle,
-  ArrowUpRight,
   Copy,
   Settings,
   ChevronDown,
@@ -14,30 +13,6 @@ import {
 import { api, writeClipboard } from "./api";
 import { Modal } from "./views";
 import { networkState, reportForSharing } from "./safety-state.mjs";
-
-const diagnostics = [
-  {
-    name: "IP 质量",
-    source: "ip.net.coffee",
-    url: "https://ip.net.coffee/claude/",
-    description: "查看 IP 属性、ASN、信誉评分与网络诊断。",
-  },
-  {
-    name: "浏览器信息",
-    source: "fuck-claude.vercel.app",
-    url: "https://fuck-claude.vercel.app/",
-    description: "查看时区、语言、字体等浏览器信号的社区评估。",
-    attribution: "原项目 FuckClaude 由 LinXiaoTao 创建并持续维护。",
-    links: [
-      { label: "原项目官网", url: "https://fuck-claude.vercel.app/" },
-      { label: "开源仓库", url: "https://github.com/LinXiaoTao/FuckClaude" },
-      {
-        label: "初始提交",
-        url: "https://github.com/LinXiaoTao/FuckClaude/commit/420c79bb0531b12ea2788e726ffbf81075111737",
-      },
-    ],
-  },
-];
 
 export async function bindDetectedMacOSExit(ip, onConfirm) {
   if (!(await onConfirm({ title: "绑定固定出口？", body: `客机终端、浏览器和代理均测得 ${ip}。保存后请重启客机并重新检测。`, confirm: "绑定固定出口" }))) return null;
@@ -48,7 +23,6 @@ export function SafetyPanel({
   status,
   onClose,
   onSettings,
-  onOpenPage,
   onConfirm,
 }) {
   const [error, setError] = useState(""),
@@ -95,9 +69,6 @@ export function SafetyPanel({
     } catch {
       setError("无法写入本机剪贴板，请检查浏览器的剪贴板权限。");
     }
-  };
-  const open = async (url) => {
-    if (await onOpenPage(url)) onClose();
   };
   return (
     <Modal
@@ -247,45 +218,6 @@ export function SafetyPanel({
               ))}
           </div>
         )}
-        <div className="safety-section-heading">
-          <h4>社区补充检查</h4>
-          <span>提示项，不参与联网准入</span>
-        </div>
-        <div className="diagnostic-sites">
-          {diagnostics.map((site) => (
-            <div key={site.url}>
-              <strong>{site.name}</strong>
-              <small>{site.source}</small>
-              <p>{site.description}</p>
-              <button disabled={!online || busy} onClick={() => open(site.url)}>
-                在 Cage 中打开
-                <ArrowUpRight size={14} />
-              </button>
-              {site.attribution && (
-                <div className="safety-scope">
-                  <p>{site.attribution}</p>
-                  <div className="safety-sources">
-                    {site.links.map((link) => (
-                      <button
-                        key={link.url}
-                        className="text-button"
-                        disabled={!online || busy}
-                        onClick={() => open(link.url)}
-                      >
-                        {link.label}
-                        <ArrowUpRight size={12} />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-        <p className="field-help">
-          点击后才访问第三方站点。站点会收到 Cage 的出口
-          IP，并可读取该页面可访问的浏览器信息。评分属于社区参考。
-        </p>
         <details className="safety-scope">
           <summary>检查范围与来源</summary>
           <p>
@@ -294,32 +226,9 @@ export function SafetyPanel({
             数据库，城市判断具有误差。代理自身按目标分流的行为仍需在代理侧约束。
           </p>
           <p>
-            报告包含运行时策略和采样证据，不能代替完整虚拟化审计，也不代表平台账号资格或封禁预测。全面检查有效期为
+            报告包含运行时策略和采样证据，不能代替完整虚拟化审计。全面检查有效期为
             24 小时；控制服务失联后，联网授权最多保留 90 秒。
           </p>
-          <div className="safety-sources">
-            <span>方法参考</span>
-            <button
-              className="text-button"
-              disabled={!online}
-              onClick={() =>
-                open("https://github.com/YOURSJEYO/claude-switcher")
-              }
-            >
-              claude-switcher
-              <ArrowUpRight size={12} />
-            </button>
-            <button
-              className="text-button"
-              disabled={!online}
-              onClick={() =>
-                open("https://github.com/DUNHKpcc/Claude-Guardian")
-              }
-            >
-              Claude-Guardian
-              <ArrowUpRight size={12} />
-            </button>
-          </div>
         </details>
       </div>
     </Modal>

@@ -2,7 +2,7 @@
 
 <h1>Claude Cage</h1>
 
-**Ku hay Miss Claude qafis, si aan si wanaagsan u ilaalin karno waqtigeena wada jirka ah**
+**Deegaan horumarineed oo go’doonsan**
 
 <img src="assets/claude-cage-character.png" alt="Claude Cage" width="320" />
 
@@ -16,24 +16,9 @@
 
 </div>
 
-## Waan ka daalnay Anthropic
+## Deegaan horumarineed oo go’doonsan
 
-Isticmaalayaasha caadiga ah ee raba inay la hadlaan Claude, waanu ka daalnay habaynta tusaalooyinka VPS, sawirka faraha browserka, iyo hubinta deegaanka, anagoo ka walwalsanayn xayiraadaha akoonnada iyo khasaaraha maaliyadeed. Waxaan soo bandhigaynaa **Claude Cage** -**codsi desktop diyaar u ah in la isticmaalo: habayso wakiilkaaga shabakad oo maamul deegaankaaga go'doonsan, aagga wakhtiga, luqadda, iyo hubinta deegaanka ee hal meel ah.**
-
-Claude Cage wuxuu terminalka, biraawsarka, tafatiraha iyo Claude Desktop-ka rasmiga ah ku mideeyaa hal goob shaqo oo go’doonsan. Ku isticmaal macOS mashiin macmal ah oo Mac ah, Windows kombiyuutar la jaanqaadaya, ama deegaan Linux fudud. Wadaag mashaariicda aad doorato, shabakadda si gaar ah u maamul, serverkaaga SSH ku xir, hawlahana telefoonka ka sii wad. Astaamaha ugu waaweyn:
-
-- Dejinta shabakada oo ka go'an martigeliyaha; Dariiqyada qafisku waxay maraa dhammaan taraafikada shabakada gudaha deegaankeeda iyada oo u sii marinaysa wakiilkeeda shabakadeeda
-- Dejinta faraha browserka ee ka go'doon martigeliyaha, oo ay ku jiraan aaga wakhtiga iyo luqadda, oo leh si toos ah ula mid ah goobta wakiilka shabakada
-- Isku dhafka inta lagu jiro socodka shaqada Claude: soo gelida browserka, oggolaanshaha akoontiga, iyo nidaamka Claude Code
-- Shabakad la dhisay iyo jeegaga go'doominta ayaa hakiya gelitaanka intarneedka marka hubinta muhiimka ahi ay fashilmaan ama caddayntu aanay dhammaystirnayn; jeegaga bulshada iyo qolo saddexaad waxay bixiyaan macluumaad tixraac dheeraad ah
-
-**Natiijooyinka hubinta deegaanka ee Cage:**
-
-| Hubinta shabakadda iyo go’doominta | Hubinta biraawsarka ee bulshada |
-| :---: | :---: |
-| <a href="assets/network-checks.png"><img src="assets/network-checks.png" alt="Hubinta shabakadda iyo go’doominta" width="400" /></a> | <a href="assets/community-browser-check.png"><img src="assets/community-browser-check-cropped.png" alt="Hubinta biraawsarka ee bulshada" width="400" /></a> |
-
-[FuckClaude](https://fuck-claude.vercel.app/) · [LinXiaoTao / GitHub](https://github.com/LinXiaoTao/FuckClaude)
+Claude Cage wuxuu terminalka, biraawsarka, tafatiraha iyo Claude Desktop-ka rasmiga ah ku mideeyaa hal goob shaqo oo go’doonsan. Ku isticmaal macOS mashiin macmal ah oo Mac ah, Windows kombiyuutar la jaanqaadaya, ama deegaan Linux fudud. Wadaag mashaariicda aad doorato, shabakadda si gaar ah u maamul, serverkaaga SSH ku xir, hawlahana telefoonka ka sii wad.
 
 **Interface ugu weyn ee Cage:**
 
@@ -58,8 +43,6 @@ U dir codsigan wakiilkaaga AI (codex, dsh, workbuddy - malaha maaha Claude Code 
 ```markdown
 Iga caawi in aan rakibo https://github.com/Lee-xeo/Claude-Cage oo habee wakiilka shabakada Cage si aad u isticmaasho xxx dhamaadka rakibida xaafadayda.
 ```
-
-Waxa kaliya ee aad u baahan tahay waa barta ugu dambeysa ee wakiil shabakad la isku halayn karo. Mashruucani ma dalacsiinayo bixiye wakiil; Waxaad heli kartaa bixiye laftaada, tusaale ahaan adoo raadiya shabakada qaladka madow.
 
 ## Soo deji oo rakib
 
@@ -139,7 +122,6 @@ Waad ku mahadsan tahay mashaariicda soo socota ee kartida aasaasiga ah iyo tixra
 - [Mihomo](https://github.com/MetaCubeX/mihomo):-ku-xidhan xudunta wakiilnimada.
 - [code-server](https://github.com/coder/code-server): tifaftiraha koodhka ku salaysan browserka.
 - [AIO Sandbox](https://github.com/agent-infra/sandbox): tixraacyada jawiga shaqada iyo naqshadeynta isdhexgalka.
-- [claude-switcher](https://github.com/YOURSJEYO/claude-switcher) iyo [Claude-Guardian](https://github.com/DUNHKpcc/Claude-Guardian): tixraacyada hubinta shabakada iyo ogaanshaha amniga.
 
 
 <a href="https://www.star-history.com/?repos=Lee-xeo%2FClaude-Cage&amp;type=date">

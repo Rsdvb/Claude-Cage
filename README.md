@@ -2,7 +2,7 @@
 
 <h1>Claude Cage</h1>
 
-**把 Claude 大小姐关起来，为了更好地保护我们的相遇**
+**隔离开发工作台**
 
 <img src="assets/claude-cage-character.png" alt="Claude Cage" width="320" />
 
@@ -10,30 +10,15 @@
 
 <a href="https://trendshift.io/repositories/339051#achievements"><img src="https://trendshift.io/api/badge/trendshift/repositories/339051/daily?language=Go" alt="Trendshift — Go Repository of the Day" width="250" height="55" /></a> <a href="https://trendshift.io/repositories/339051#achievements"><img src="https://trendshift.io/api/badge/trendshift/repositories/339051/weekly?language=Go" alt="Trendshift — Go Repository of the Week" width="250" height="55" /></a>
 
-**[项目主页](https://claude-cage.com/) · [下载应用](https://claude-cage.com/#download) · [使用文档](https://claude-cage.com/docs/) · [常见问题](https://claude-cage.com/docs/troubleshooting/)**
+**[上游主页](https://claude-cage.com/) · [下载上游发行版](https://claude-cage.com/#download) · [使用文档](https://claude-cage.com/docs/) · [常见问题](https://claude-cage.com/docs/troubleshooting/)**
 
 [简体中文](README.md) · [繁體中文](README.zh-TW.md) · [Русский](README.ru.md) · [العربية](README.ar.md) · [فارسی](README.fa.md) · [한국어](README.ko.md) · [Español](README.es.md) · [မြန်မာဘာသာ](README.my.md) · [Беларуская](README.be.md) · [پښتو](README.ps.md) · [دری](README.prs.md) · [አማርኛ](README.am.md) · [Soomaali](README.so.md) · [ትግርኛ](README.ti.md) · [Français](README.fr.md)
 
 </div>
 
-## 受够了 Anthropic
+## 隔离开发工作台
 
-作为一个只是想和 Claude 对话与合作的正常用户，受够了折腾各种 VPS，指纹浏览器，环境检测，面对封号的担惊受怕和财产损失。我们提出 **Claude Cage** 项目：**一个开箱即用的桌面程序，配置好自己的网络代理，集中管理隔离环境、时区语言和环境检查。**
-
-Claude Cage 让你在熟悉的系统里与 Claude 一起工作：Mac 上用 macOS 虚拟机，Windows 上用 Windows 虚拟机，也可以选择轻量的 Linux 环境。终端、浏览器、编辑器和官方 Claude Desktop 汇集在同一个工作台，项目按需共享，网络独立管理；还可以连接自己的服务器，或用手机接续电脑上的任务。支持以下几个重点功能：
-
-- 和主机隔离的网络设置，Cage 自己接管和代理内部的所有网络流量
-- 和主机隔离的指纹设置，包括时区、语言等，支持自动与代理 IP 同步
-- 针对 Claude 使用过程中的全链路适配（浏览器登录，授权，claude code 进程）
-- 内置网络与隔离检查，关键检查失败或证据不完整时暂停外网；社区和第三方检测提供补充参考
-
-**使用 Cage 的环境检测结果：**
-
-| 网络与隔离检查 | 浏览器环境检测（社区参考） |
-| :---: | :---: |
-| <a href="assets/network-checks.png"><img src="assets/network-checks.png" alt="网络与隔离检查" width="400" /></a> | <a href="assets/community-browser-check.png"><img src="assets/community-browser-check-cropped.png" alt="浏览器环境检测（社区参考）" width="400" /></a> |
-
-[FuckClaude](https://fuck-claude.vercel.app/) · [LinXiaoTao / GitHub](https://github.com/LinXiaoTao/FuckClaude)
+Claude Cage 将 Claude Code、终端、浏览器和编辑器放在隔离的开发环境中。你可以按需共享项目、管理客机网络，通过 SSH 连接自己的服务器，或在手机上查看回复和审批工具调用。
 
 **Cage 运行主界面：**
 
@@ -49,19 +34,13 @@ Claude Cage 让你在熟悉的系统里与 Claude 一起工作：Mac 上用 macO
 - **管理多个 Claude Code 订阅。** 查看额度、为新会话分配账号，并在明确授权后切换账号接续历史。 [Claude Code](docs/guide/accounts.md)
 - **从手机继续处理任务。** Android / iPhone 配对电脑，接续 Claude Code 对话与工具审批，或操作远程浏览器和 Claude Desktop。[手机连接](docs/guide/mobile.md)
 - **把环境放到自己的服务器。** 通过 SSH 部署或连接 Linux VPS，工具、任务和数据留在服务器，无需 KVM。[云端部署与 SSH](docs/guide/cloud.md)
-- **通过私网连接设备。** 在 Cage 内登录 Tailscale，查看网络中的设备，使用 SSH、Web 与其他 TCP 服务。 [Tailscale 私网](docs/guide/tailscale.md)
+- **通过私网连接设备。** 选择一台 Tailscale 设备和一个 TCP 端口，通过宿主机建立连接。 [Tailscale 私网](docs/guide/tailscale.md)
 
 浏览器收藏、无痕会话、Cookie、扩展、密码保险箱，以及外观、资源、存储和工具更新，见[完整使用文档](https://claude-cage.com/docs/)。
 
 ## 快速开始
 
-把这句话发给你的 agent（codex，dsh，workbuddy，反正不会是 claude code😁）
-
-```markdown
-帮我安装 https://github.com/Lee-xeo/Claude-Cage ，并把 Cage 的代理配置为我本机 Clash 的 xxx 节点。
-```
-
-你唯一需要的，是一个靠谱的代理节点，本项目不做任何代理推广，可以自行搜索黑色错误网站解决。
+这个 fork 的宿主机 Tailscale 功能需要从本仓库源码构建。Windows 运行 [PowerShell 构建脚本](scripts/build-windows.ps1)，Linux 运行 `make cage-linux`，macOS 运行 `make cage`。构建后按[首次启动指南](docs/getting-started.md)配置客机。iPhone 用户可以按 [iOS 本地构建指南](docs/guide/mobile.md#ios-本地构建)安装和配对。
 
 ## 下载与安装
 
@@ -147,7 +126,6 @@ Cage 是独立社区项目，与 Anthropic 无隶属关系。
 - [Mihomo](https://github.com/MetaCubeX/mihomo)：内置代理核心。
 - [code-server](https://github.com/coder/code-server)：浏览器中的代码编辑器。
 - [AIO Sandbox](https://github.com/agent-infra/sandbox)：工作环境和交互体验参考。
-- [claude-switcher](https://github.com/YOURSJEYO/claude-switcher) 和 [Claude-Guardian](https://github.com/DUNHKpcc/Claude-Guardian)：网络检查和安全诊断方法参考。
 
 <a href="https://www.star-history.com/?repos=Lee-xeo%2FClaude-Cage&amp;type=date">
   <picture>

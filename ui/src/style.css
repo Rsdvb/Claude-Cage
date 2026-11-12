@@ -152,33 +152,6 @@
   font-size: 0.9286rem;
   line-height: 1.7;
 }
-.diagnostic-sites {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-.diagnostic-sites > div {
-  border: 1px solid var(--line);
-  border-radius: 7px;
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 5px;
-}
-.diagnostic-sites strong {
-  color: var(--strong);
-  font-size: 0.9286rem;
-}
-.diagnostic-sites small {
-  font-size: 0.7857rem;
-}
-.diagnostic-sites p {
-  font-size: 0.8571rem;
-  line-height: 1.6;
-  flex: 1;
-  margin: 5px 0 9px;
-}
 .safety-scope {
   border-top: 1px solid var(--line);
   padding-top: 14px;
@@ -191,12 +164,6 @@
 .safety-scope p {
   line-height: 1.7;
 }
-.safety-sources {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
 .safety-advisories p {
   display: flex;
   gap: 8px;
@@ -208,9 +175,6 @@
   flex: none;
   margin-top: 3px;
   color: var(--accent);
-}
-.safety-sources .text-button {
-  font-size: 0.8571rem;
 }
 .exit-observation {
   display: flex;

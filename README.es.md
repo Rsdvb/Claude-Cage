@@ -2,7 +2,7 @@
 
 <h1>Claude Cage</h1>
 
-**Mantenga a la señorita Claude en una jaula para que podamos proteger mejor nuestro tiempo juntos.**
+**Entorno de desarrollo aislado**
 
 <img src="assets/claude-cage-character.png" alt="Claude Cage" width="320" />
 
@@ -16,24 +16,9 @@
 
 </div>
 
-## Hartazgo con Anthropic
+## Entorno de desarrollo aislado
 
-Como usuarios normales que sólo queremos hablar y colaborar con Claude, estamos cansados de configurar instancias de VPS, perfiles de huellas dactilares del navegador y comprobaciones del entorno, mientras nos preocupamos por las prohibiciones de cuentas y las pérdidas financieras. presentamos **Claude Cage** — **una aplicación de escritorio lista para usar: configure su propio proxy de red y administre su entorno aislado, zona horaria, idioma y comprobaciones de entorno en un solo lugar.**
-
-Claude Cage reúne terminal, navegador, editor y Claude Desktop oficial en un mismo espacio de trabajo aislado. Usa una máquina virtual macOS en Mac, Windows en un PC compatible o un entorno Linux ligero. Comparte solo los proyectos que elijas, gestiona la red por separado, conecta tu servidor por SSH y continúa las tareas desde el teléfono. Sus funciones principales:
-
-- Configuraciones de red aisladas del host; Cage enruta todo el tráfico de red dentro de su entorno a través de su propio proxy de red.
-- Configuración de huellas digitales del navegador aislada del host, incluida la zona horaria y el idioma, con sincronización automática con la ubicación IP del proxy de red
-- Integración en todo el flujo de trabajo de Claude: inicio de sesión en el navegador, autorización de cuenta y proceso de Claude Code
-- Las comprobaciones de red y aislamiento integradas pausan el acceso a Internet cuando las comprobaciones críticas fallan o la evidencia está incompleta; Los controles comunitarios y de terceros proporcionan información de referencia adicional.
-
-**Resultados de la verificación ambiental con Cage:**
-
-| Comprobación de red y aislamiento | Comprobación del navegador de la comunidad |
-| :---: | :---: |
-| <a href="assets/network-checks.png"><img src="assets/network-checks.png" alt="Comprobación de red y aislamiento" width="400" /></a> | <a href="assets/community-browser-check.png"><img src="assets/community-browser-check-cropped.png" alt="Comprobación del navegador de la comunidad" width="400" /></a> |
-
-[FuckClaude](https://fuck-claude.vercel.app/) · [LinXiaoTao / GitHub](https://github.com/LinXiaoTao/FuckClaude)
+Claude Cage reúne terminal, navegador, editor y Claude Desktop oficial en un mismo espacio de trabajo aislado. Usa una máquina virtual macOS en Mac, Windows en un PC compatible o un entorno Linux ligero. Comparte solo los proyectos que elijas, gestiona la red por separado, conecta tu servidor por SSH y continúa las tareas desde el teléfono.
 
 **Interfaz principal de Cage:**
 
@@ -58,8 +43,6 @@ Envíe esta solicitud a su agente de IA (codex, dsh, workbuddy; probablemente no
 ```markdown
 Ayúdame a instalar https://github.com/Lee-xeo/Claude-Cage y configurar el proxy de red de Cage para usar el punto final xxx en mi instalación local de Clash.
 ```
-
-Todo lo que necesita es un punto final de proxy de red confiable. Este proyecto no promueve ningún proveedor de proxy; Puede encontrar un proveedor usted mismo, por ejemplo buscando en el sitio web de Black Error.
 
 ## Descarga e instalación
 
@@ -139,7 +122,6 @@ Gracias a los siguientes proyectos por capacidades fundamentales y referencias d
 - [Mihomo](https://github.com/MetaCubeX/mihomo): el núcleo de proxy de red integrado.
 - [code-server](https://github.com/coder/code-server): el editor de código basado en navegador.
 - [AIO Sandbox](https://github.com/agent-infra/sandbox): referencias para el ambiente de trabajo y el diseño de interacción.
-- [claude-switcher](https://github.com/YOURSJEYO/claude-switcher) y [Claude-Guardian](https://github.com/DUNHKpcc/Claude-Guardian): referencias para comprobaciones de red y diagnósticos de seguridad.
 
 
 <a href="https://www.star-history.com/?repos=Lee-xeo%2FClaude-Cage&amp;type=date">

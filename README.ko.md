@@ -2,7 +2,7 @@
 
 <h1>Claude Cage</h1>
 
-**클로드 양을 우리에 가둬서 우리가 함께하는 시간을 더 잘 보호할 수 있도록**
+**격리된 개발 작업 공간**
 
 <img src="assets/claude-cage-character.png" alt="Claude Cage" width="320" />
 
@@ -16,24 +16,9 @@
 
 </div>
 
-## Anthropic에 지쳤습니다
+## 격리된 개발 작업 공간
 
-클로드와 대화하고 협업하고 싶은 일반 사용자로서 VPS 인스턴스, 브라우저 지문 프로필, 환경 확인을 구성하는 데 지쳤으며 계정 금지 및 금전적 손실을 걱정합니다. 우리는 선물한다 **Claude Cage** — **즉시 사용 가능한 데스크탑 애플리케이션: 자체 네트워크 프록시를 구성하고 격리된 환경, 시간대, 언어 및 환경 확인을 한 곳에서 관리합니다.**
-
-Claude Cage는 터미널, 브라우저, 편집기와 공식 Claude Desktop을 하나의 격리된 작업 공간에 모읍니다. Mac에서는 macOS 가상 머신을, 지원되는 Windows PC에서는 Windows 가상 머신을 사용하거나 가벼운 Linux 환경을 선택하세요. 필요한 프로젝트만 공유하고 네트워크를 따로 관리하며, SSH로 서버에 연결하거나 휴대폰에서 작업을 이어갈 수 있습니다. 주요 기능:
-
-- 호스트와 격리된 네트워크 설정 Cage는 자체 네트워크 프록시를 통해 환경 내부의 모든 네트워크 트래픽을 라우팅합니다.
-- 네트워크 프록시의 IP 위치에 대한 자동 동기화를 통해 시간대 및 언어를 포함하여 호스트에서 격리된 브라우저 지문 설정
-- Claude 워크플로우 전반에 걸친 통합: 브라우저 로그인, 계정 인증 및 Claude Code 프로세스
-- 내장된 네트워크 및 격리 검사는 중요한 검사가 실패하거나 증거가 불완전한 경우 인터넷 액세스를 일시 중지합니다. 커뮤니티 및 제3자 확인을 통해 추가 참조 정보 제공
-
-**Cage를 사용한 환경 점검 결과:**
-
-| 네트워크 및 격리 검사 | 커뮤니티 브라우저 검사 |
-| :---: | :---: |
-| <a href="assets/network-checks.png"><img src="assets/network-checks.png" alt="네트워크 및 격리 검사" width="400" /></a> | <a href="assets/community-browser-check.png"><img src="assets/community-browser-check-cropped.png" alt="커뮤니티 브라우저 검사" width="400" /></a> |
-
-[FuckClaude](https://fuck-claude.vercel.app/) · [LinXiaoTao / GitHub](https://github.com/LinXiaoTao/FuckClaude)
+Claude Cage는 터미널, 브라우저, 편집기와 공식 Claude Desktop을 하나의 격리된 작업 공간에 모읍니다. Mac에서는 macOS 가상 머신을, 지원되는 Windows PC에서는 Windows 가상 머신을 사용하거나 가벼운 Linux 환경을 선택하세요. 필요한 프로젝트만 공유하고 네트워크를 따로 관리하며, SSH로 서버에 연결하거나 휴대폰에서 작업을 이어갈 수 있습니다.
 
 **Cage의 기본 인터페이스:**
 
@@ -58,8 +43,6 @@ Claude Cage는 터미널, 브라우저, 편집기와 공식 Claude Desktop을 �
 ```markdown
 설치 도와주세요 https://github.com/Lee-xeo/Claude-Cage 로컬 Clash 설치에서 xxx 엔드포인트를 사용하도록 Cage의 네트워크 프록시를 구성합니다.
 ```
-
-필요한 것은 안정적인 네트워크 프록시 엔드포인트뿐입니다. 이 프로젝트는 프록시 공급자를 홍보하지 않습니다. 예를 들어 Black Error 웹사이트를 검색하여 제공자를 직접 찾을 수 있습니다.
 
 ## 다운로드 및 설치
 
@@ -139,7 +122,6 @@ Cage는 독립적인 커뮤니티 프로젝트이며 Anthropic과 관련이 없�
 - [Mihomo](https://github.com/MetaCubeX/mihomo): 내장된 네트워크 프록시 코어입니다.
 - [code-server](https://github.com/coder/code-server): 브라우저 기반 코드 편집기입니다.
 - [AIO Sandbox](https://github.com/agent-infra/sandbox): 작업 환경 및 인터랙션 디자인에 대한 참고 자료입니다.
-- [claude-switcher](https://github.com/YOURSJEYO/claude-switcher) 그리고 [Claude-Guardian](https://github.com/DUNHKpcc/Claude-Guardian): 네트워크 점검 및 보안 진단을 위한 참고 자료입니다.
 
 
 <a href="https://www.star-history.com/?repos=Lee-xeo%2FClaude-Cage&amp;type=date">

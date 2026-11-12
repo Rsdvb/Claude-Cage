@@ -35,8 +35,8 @@ function readCopy(language: typeof languages[number]) {
   const installParagraphs = paragraphs(installation.body);
   const captions = [...reason.body.matchAll(/^\*\*(.+?)\*\*\s*$/gm)].map(match => plain(match[1]));
   const stepHeadings = [...steps.body.matchAll(/^### \d+\. (.+)$/gm)];
-  if (stepHeadings.length !== 3 || bullets(reason.body).length !== 4 || bullets(boundaries.body).length !== 4) {
-    throw new Error(`${file}: README feature, setup or boundary structure has changed`);
+  if (stepHeadings.length !== 3 || bullets(boundaries.body).length !== 4) {
+    throw new Error(`${file}: README setup or boundary structure has changed`);
   }
   const setup = stepHeadings.map((heading, i): [string,string] => [heading[1], plain(steps.body.slice(heading.index! + heading[0].length, stepHeadings[i+1]?.index ?? steps.body.length))]);
   const docs = [...contribution.body.matchAll(/^\|\s*([^|]+)\s*\|\s*\[([^\]]+)\]\(([^)]+)\)\s*\|/gm)].map(match => ({
@@ -44,19 +44,13 @@ function readCopy(language: typeof languages[number]) {
   }));
   const slogan = source.slice(0, headings[0].index).match(/^\*\*(.+?)\*\*$/m)?.[1] || 'Claude Cage';
   const isChinese = language.code === 'zh' || language.code === 'zh-TW';
-  const limit = plain(bullets(boundaries.body).at(-1)!);
   return {
-    ...language, title: `Claude Cage — ${plain(slogan)}`, description: reasonParagraphs[1],
+    ...language, title: `Claude Cage — ${plain(slogan)}`, description: reasonParagraphs[0],
     home: 'Claude Cage', start: quick.title, boundary: boundaries.title,
-    hero: isChinese ? '把 Claude 大小姐' : 'Claude Cage',
-    heroAccent: language.code === 'zh' ? '关起来。' : language.code === 'zh-TW' ? '關起來。' : '',
-    tagline: isChinese ? plain(slogan).split(/[，,]/).slice(1).join('，') : plain(slogan),
-    intro: reasonParagraphs[1], requirements: 'macOS · Windows · Linux · Android · iOS', artAlt: 'Claude Cage',
-    why: reason.title, whyText: reasonParagraphs[0], whyNote: limit,
-    keyFeatures: bullets(reason.body).map(plain),
+    tagline: plain(slogan),
+    intro: reasonParagraphs[0], requirements: 'macOS · Windows · Linux · Android · iOS', artAlt: 'Claude Cage',
     featureTitle: uses.title, features: bullets(uses.body).map(pair),
-    workbench: captions[1] || 'Claude Cage',
-    evidenceTitle: captions[0] || language.checksLabel, evidenceNote: limit,
+    workbench: captions[0] || 'Claude Cage',
     quickTitle: quick.title, quickText: paragraphs(quick.body)[0],
     prompt: quick.body.match(/```[^\n]*\n([\s\S]*?)```/)?.[1]?.trim() || '',
     quickNote: paragraphs(quick.body).slice(1).join('\n'),

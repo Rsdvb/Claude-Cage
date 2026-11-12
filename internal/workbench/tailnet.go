@@ -16,6 +16,10 @@ func validTailnetAuthURL(raw string) bool {
 func (s *Server) tailnet(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Cache-Control", "no-store")
 	action := r.PathValue("action")
+	if action == "host-peers" || action == "host-open-service" || action == "host-close-service" {
+		s.hostTailnet(w, r, action)
+		return
+	}
 	if r.Method == http.MethodGet {
 		action = "status"
 	}

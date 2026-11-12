@@ -269,6 +269,9 @@ func (s *Server) revokeNetworkNow(reason string, pause bool) error {
 		s.monitorCancel()
 	}
 	s.mu.Unlock()
+	if pause {
+		s.hostTailnetForwards.closeAll()
+	}
 	s.safetyOp.Lock()
 	defer s.safetyOp.Unlock()
 	client, err := s.gateClient()

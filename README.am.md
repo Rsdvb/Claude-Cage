@@ -2,7 +2,7 @@
 
 <h1>Claude Cage</h1>
 
-**አብረን ጊዜያችንን በተሻለ ሁኔታ ለመጠበቅ ሚስ Claudeን በቅርጫት ውስጥ አቆይ**
+**የተለየ የልማት መስሪያ ቦታ**
 
 <img src="assets/claude-cage-character.png" alt="Claude Cage" width="320" />
 
@@ -16,24 +16,9 @@
 
 </div>
 
-## በAnthropic ተሰላችተናል
+## የተለየ የልማት መስሪያ ቦታ
 
-እንደ ተራ ተጠቃሚዎች ከClaude ጋር ለመነጋገር እና ለመተባበር፣ ስለ መለያ እገዳዎች እና የገንዘብ ኪሳራዎች እየተጨነቅን የVPS ምሳሌዎችን፣ የአሳሽ አሻራ መገለጫዎችን እና የአካባቢ ፍተሻዎችን ማዋቀር ሰልችቶናል። እናቀርባለን። **Claude Cage** -**ለመጠቀም ዝግጁ የሆነ የዴስክቶፕ መተግበሪያ፡ የራስዎን የአውታረ መረብ ፕሮክሲ ያዋቅሩ እና የእርስዎን ገለልተኛ አካባቢ፣ የሰዓት ሰቅ፣ ቋንቋ እና የአካባቢ ፍተሻዎችን በአንድ ቦታ ያስተዳድሩ።**
-
-Claude Cage ተርሚናልን፣ አሳሽን፣ አርታዒን እና ኦፊሴላዊውን Claude Desktop በአንድ የተለየ የሥራ ቦታ ያጣምራል። በMac ላይ macOS ቨርቹዋል ማሽን፣ በተስማሚ Windows ኮምፒውተር ላይ Windows ወይም ቀላል Linux አካባቢ ይጠቀሙ። የመረጡትን ፕሮጀክቶች ያጋሩ፣ አውታረ መረቡን በተናጠል ያስተዳድሩ፣ ከራስዎ አገልጋይ ጋር በSSH ይገናኙ እና ከስልክ ሥራ ይቀጥሉ። ዋና ባህሪያት፦
-
-- ከአስተናጋጁ ተነጥለው የአውታረ መረብ ቅንብሮች; Cage ሁሉንም የአውታረ መረብ ትራፊክ በአካባቢያቸው ውስጥ በራሱ የአውታረ መረብ ፕሮክሲ በኩል ያደርሳል
-- የሰዓት ሰቅ እና ቋንቋን ጨምሮ ከአስተናጋጁ የተገለሉ የአሳሽ አሻራ ቅንጅቶች ከአውታረ መረቡ ተኪ አይፒ አካባቢ ጋር በራስ ሰር ማመሳሰል
-- በClaude የስራ ሂደት ውስጥ ያለው ውህደት፡ የአሳሽ መግባት፣ የመለያ ፍቃድ እና የClaude ኮድ ሂደት
-- አብሮገነብ አውታረመረብ እና የመነጠል ፍተሻዎች ወሳኝ ፍተሻዎች ሲቀሩ ወይም ማስረጃው ካልተሟላ የበይነመረብ መዳረሻን ባለበት ያቆማሉ። የማህበረሰብ እና የሶስተኛ ወገን ቼኮች ተጨማሪ የማጣቀሻ መረጃ ይሰጣሉ
-
-**በ Cage የአካባቢ ፍተሻ ውጤቶች፡-**
-
-| የአውታረ መረብ እና የማግለል ምርመራዎች | የማህበረሰብ አሳሽ ምርመራ |
-| :---: | :---: |
-| <a href="assets/network-checks.png"><img src="assets/network-checks.png" alt="የአውታረ መረብ እና የማግለል ምርመራዎች" width="400" /></a> | <a href="assets/community-browser-check.png"><img src="assets/community-browser-check-cropped.png" alt="የማህበረሰብ አሳሽ ምርመራ" width="400" /></a> |
-
-[FuckClaude](https://fuck-claude.vercel.app/) · [LinXiaoTao / GitHub](https://github.com/LinXiaoTao/FuckClaude)
+Claude Cage ተርሚናልን፣ አሳሽን፣ አርታዒን እና ኦፊሴላዊውን Claude Desktop በአንድ የተለየ የሥራ ቦታ ያጣምራል። በMac ላይ macOS ቨርቹዋል ማሽን፣ በተስማሚ Windows ኮምፒውተር ላይ Windows ወይም ቀላል Linux አካባቢ ይጠቀሙ። የመረጡትን ፕሮጀክቶች ያጋሩ፣ አውታረ መረቡን በተናጠል ያስተዳድሩ፣ ከራስዎ አገልጋይ ጋር በSSH ይገናኙ እና ከስልክ ሥራ ይቀጥሉ።
 
 **የ Cage ዋና በይነገጽ**
 
@@ -58,8 +43,6 @@ Claude Cage ተርሚናልን፣ አሳሽን፣ አርታዒን እና ኦፊ�
 ```markdown
 እንድጫን እርዳኝ። https://github.com/Lee-xeo/Claude-Cage እና የCage's network proxy አዋቅር በእኔ የአከባቢ ግጭት የ xxx የመጨረሻ ነጥብ ለመጠቀም።
 ```
-
-የሚያስፈልግህ አስተማማኝ የአውታረ መረብ ተኪ የመጨረሻ ነጥብ ነው። ይህ ፕሮጀክት ማንኛውንም ተኪ አቅራቢን አያስተዋውቅም። አቅራቢን እራስዎ ማግኘት ይችላሉ፣ ለምሳሌ የጥቁር ስህተት ድህረ ገጽን በመፈለግ።
 
 ## ማውረድ እና መጫን
 
@@ -139,7 +122,6 @@ Cage ራሱን የቻለ የማህበረሰብ ፕሮጀክት ነው እና ከ
 - [Mihomo](https://github.com/MetaCubeX/mihomo) አብሮ የተሰራው የአውታረ መረብ ፕሮክሲ ኮር።
 - [code-server](https://github.com/coder/code-server): በአሳሽ ላይ የተመሰረተ ኮድ አርታዒ.
 - [AIO Sandbox](https://github.com/agent-infra/sandbox) የሥራ አካባቢ እና መስተጋብር ንድፍ ማጣቀሻዎች.
-- [claude-switcher](https://github.com/YOURSJEYO/claude-switcher) እና [Claude-Guardian](https://github.com/DUNHKpcc/Claude-Guardian) ለአውታረ መረብ ፍተሻዎች እና የደህንነት ምርመራዎች ማጣቀሻዎች።
 
 
 <a href="https://www.star-history.com/?repos=Lee-xeo%2FClaude-Cage&amp;type=date">

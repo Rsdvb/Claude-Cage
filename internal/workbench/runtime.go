@@ -489,6 +489,7 @@ func (s *Server) startEnvironment(syncTimezone bool) error {
 	return errors.New("环境已启动，但浏览器连接尚未就绪。请重试连接或查看操作详情。")
 }
 func (s *Server) stopEnvironment() (returned error) {
+	s.hostTailnetForwards.closeAll()
 	s.desktopStatus.invalidate()
 	defer s.desktopStatus.invalidate()
 	explicitStop := s.jobs.snapshot().Kind == "stop"

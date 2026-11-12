@@ -83,6 +83,7 @@ type Server struct {
 	tickets                                          map[string]time.Time
 	browserControl                                   *browserClient
 	controlSession                                   guestSession
+	hostTailnetForwards                              hostTailnetForwards
 	windowsBrowserControl                            *windowsBrowserClient
 	nativeDownloads                                  map[string]*nativeDownload
 	nativeDownloadSlots                              chan struct{}

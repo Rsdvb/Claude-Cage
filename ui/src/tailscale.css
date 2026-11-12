@@ -35,7 +35,7 @@
 .tailscale-device-detail { display: flex; flex-direction: column; gap: 10px; padding: 16px; margin-top: 12px; background: var(--chrome); border: 1px solid var(--border); border-radius: 8px; }
 .tailscale-dns { overflow-wrap: anywhere; }
 .tailscale-connect-form { display: flex; gap: 8px; }
-.tailscale-connect-form input { min-width: 0; flex: 1; border: 1px solid var(--border); border-radius: 7px; padding: 8px 10px; background: transparent; color: var(--ink); font: inherit; font-size: 12px; }
+.tailscale-connect-form :is(input, select) { min-width: 0; flex: 1; border: 1px solid var(--border); border-radius: 7px; padding: 8px 10px; background: var(--chrome); color: var(--ink); font: inherit; font-size: 12px; }
 .tailscale-disclosure { display: flex; align-items: center; justify-content: space-between; gap: 10px; border: 0; background: transparent; padding: 0; width: 100%; color: inherit; cursor: pointer; font: inherit; font-size: 13px; font-weight: 600; text-align: left; }
 .tailscale-disclosure > span, .tailscale-detail .field-label { display: flex; align-items: center; gap: 8px; }
 .tailscale-disclosure > svg, .tailscale-peer-row button > svg { transition: transform 160ms ease; }

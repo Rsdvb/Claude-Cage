@@ -45,6 +45,7 @@ import { ProjectDialog } from "./project-dialog";
 import {
   readLocal,
   orderedTabs,
+  reconcileTabs,
   focusTab,
   splitTab,
   projectName,
@@ -699,15 +700,7 @@ function App() {
               kind: "terminal",
             })),
           ];
-          setTabs((previous) => {
-            const map = new Map(all.map((item) => [item.id, item]));
-            return [
-              ...previous
-                .filter((item) => map.has(item.id))
-                .map((item) => map.get(item.id)),
-              ...all.filter((item) => !previous.some((p) => p.id === item.id)),
-            ];
-          });
+          setTabs(previous => reconcileTabs(previous, all));
           if (!browserDismissed.current && initialized.current && b.active && b.active !== activeRef.current && !browserIds.current.has(b.active)) {
             setDesktopOpen(false);
             setHome(false);
@@ -1812,7 +1805,7 @@ function App() {
           onConfirm={confirm}
         />
       )}
-      {tailscaleOpen && <TailscalePanel status={status} onClose={() => setTailscaleOpen(false)}
+      {tailscaleOpen && <TailscalePanel status={status} windowVisible={windowVisible} hostServices={!isRemoteClient()} onClose={() => setTailscaleOpen(false)}
         onConfirm={confirm} onInstall={async () => {
           const nativeGuest = ["macos", "windows-11"].includes(status.guest_system);
           if (nativeGuest && !await confirm({ title: "更新环境组件？", body: "更新会重新连接浏览器和显示组件，请先保存工作。设备身份、公钥和个人数据保留。", confirm: "更新组件" })) return;
@@ -1957,7 +1950,6 @@ function App() {
           }
           onClose={() => setSafetyOpen(false)}
           onSettings={openSettings}
-          onOpenPage={openBrowserPage}
           onConfirm={confirm}
         />
       )}
